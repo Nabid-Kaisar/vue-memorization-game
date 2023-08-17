@@ -9,6 +9,7 @@ const height = '100'
 const timeout = '2000'
 
 let randomizedData = ref([])
+let currentShowingCount = 0
 
 onMounted(() => {
   let imagesLength = imageList.length
@@ -19,15 +20,20 @@ onMounted(() => {
   }
 
   shuffleArray(randomizedData.value)
-  console.log(randomizedData)
 })
 
 const handleImageClick = (e, imgData) => {
+  if (currentShowingCount >= 2) return
   let { src: originalSrc } = e.target
   e.target.src = imageList[imgData.id]
 
+  console.log('currentShowingCount :: ', currentShowingCount)
+  currentShowingCount++
+  console.log('currentShowingCount after:: ', currentShowingCount)
+
   setTimeout(() => {
     e.target.src = originalSrc
+    currentShowingCount--
   }, timeout)
 }
 </script>
